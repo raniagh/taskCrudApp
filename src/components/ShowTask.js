@@ -1,9 +1,10 @@
-export const ShowTask = ({ taskList, setTaskList }) => {
+export const ShowTask = ({ taskList, setTaskList, task, setTask }) => {
   const handleDelete = (id) => {
     setTaskList(taskList.filter((task) => task.id !== id));
   };
   const handleEdit = (id) => {
-    //save id in localStorage
+    const selectedTask = taskList.find((todo) => todo.id === id);
+    setTask(selectedTask);
   };
   return (
     <section className="showTask">
@@ -18,19 +19,19 @@ export const ShowTask = ({ taskList, setTaskList }) => {
       </div>
       <ul>
         {taskList &&
-          taskList.map((task) => (
-            <li key={task.id}>
+          taskList.map((todo) => (
+            <li key={todo.id}>
               <p>
-                <span className="name">{task.name}</span>
-                <span className="time">{task.time}</span>
+                <span className="name">{todo.name}</span>
+                <span className="time">{todo.time}</span>
               </p>
               <i
                 className="bi bi-pencil-square"
-                onClick={() => handleEdit(task.id)}
+                onClick={() => handleEdit(todo.id)}
               ></i>
               <i
                 className="bi bi-trash"
-                onClick={() => handleDelete(task.id)}
+                onClick={() => handleDelete(todo.id)}
               ></i>
             </li>
           ))}
